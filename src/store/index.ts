@@ -1,0 +1,1 @@
+export {useCarsStore} from './carsStore';
