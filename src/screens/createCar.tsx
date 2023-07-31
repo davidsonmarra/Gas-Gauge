@@ -15,17 +15,19 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
 
-import {HeaderSteps, InputText} from '@components';
+import {HeaderSteps, FieldItem} from '@components';
 import {validateSchemaAddCar as schema, STEPS} from '@utils';
 import {
   ValidationSchemaAddCarProps as ValidationSchema,
   AddCarStepProps as StepProps,
   RootStackParamList,
 } from '@types';
+import {useCarsStore} from '@store';
 
 export const CreateCar = () => {
   const [currentStep, setCurrentStep] = useState(0);
-  const {goBack} =
+  const {addCar} = useCarsStore();
+  const {goBack, navigate} =
     useNavigation<NavigationProp<RootStackParamList, 'CreateCar'>>();
   const {width} = useWindowDimensions();
   const totalItemWidth = width - 24;
@@ -33,16 +35,19 @@ export const CreateCar = () => {
   const insets = useSafeAreaInsets();
 
   const renderItem: ListRenderItem<StepProps> = ({item}: {item: StepProps}) => (
-    <StyledItemContainer width={totalItemWidth}>
-      <InputText
-        control={control}
-        name={item.field}
-        placeholder={item.placeholder}
-      />
-    </StyledItemContainer>
+    <FieldItem
+      width={totalItemWidth}
+      control={control}
+      name={item.field}
+      placeholder={item.placeholder}
+      title={item.title}
+      description={item.description}
+      type={item.type}
+      setValue={setValue}
+    />
   );
 
-  const {control, handleSubmit} = useForm<ValidationSchema>({
+  const {control, handleSubmit, setValue} = useForm<ValidationSchema>({
     resolver: zodResolver(schema),
     mode: 'onSubmit',
   });
@@ -56,8 +61,9 @@ export const CreateCar = () => {
     }
   };
 
-  const onCreateCar = (data: ValidationSchema) => {
-    console.log(data);
+  const onCreateCar = async (data: ValidationSchema) => {
+    await addCar(data);
+    navigate('Home');
   };
 
   const scrollToNextStep = () => {
@@ -96,7 +102,7 @@ export const CreateCar = () => {
           onPressBack={() =>
             verifyIfScrollIsPossible(-1) ? scrollToBackStep() : backScreen()
           }
-          title="Nome"
+          title="Adicionar Carro"
         />
         <StyledForm>
           <StyledList
@@ -135,8 +141,6 @@ const StyledForm = styled.View`
 const StyledList = styled(
   FlatList as new (props: FlatListProps<StepProps>) => FlatList<StepProps>,
 )``;
-
-const StyledItemContainer = styled.View<{width: number}>``;
 
 const StyledButton = styled.TouchableOpacity<{bottom: number}>`
   background-color: #116695;

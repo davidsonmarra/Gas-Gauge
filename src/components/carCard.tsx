@@ -7,15 +7,17 @@ interface CarCardProps {
   car: CarProps;
 }
 
-const CarCardComponent = ({car: {name, color, average}}: CarCardProps) => (
+const CarCardComponent = ({
+  car: {name, color, average, tankCapacity},
+}: CarCardProps) => (
   <StyledCarCard>
     <CarSvg width={100} height={100} fill={color} />
     <StyledCarCardInfo>
       <StyledCarCardName>{name}</StyledCarCardName>
       {average && (
-        <StyledCarCardAverage>{`${average}`} Km/L</StyledCarCardAverage>
+        <StyledCarCardInfoText>{`${average}`} Km/L</StyledCarCardInfoText>
       )}
-      <StyledCarCardColor color={color} />
+      <StyledCarCardInfoText>{tankCapacity} L</StyledCarCardInfoText>
     </StyledCarCardInfo>
   </StyledCarCard>
 );
@@ -37,14 +39,7 @@ const StyledCarCardInfo = styled.View`
 
 const StyledCarCardName = styled.Text``;
 
-const StyledCarCardAverage = styled.Text``;
-
-const StyledCarCardColor = styled.View<{color: string}>`
-  width: 24px;
-  height: 24px;
-  border-radius: 12px;
-  background-color: ${({color}) => color};
-`;
+const StyledCarCardInfoText = styled.Text``;
 
 export const CarCard = memo(CarCardComponent, (prevProps, nextProps) => {
   return Object.is(prevProps.car, nextProps.car);

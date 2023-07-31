@@ -1,14 +1,7 @@
 import React from 'react';
-import {TextInputProps} from 'react-native';
 import styled from 'styled-components/native';
-import {Control, Controller} from 'react-hook-form';
-import {ValidationSchemaAddCarProps as ValidationSchema} from '@types';
-
-interface InputTextProps extends TextInputProps {
-  control: Control<ValidationSchema>;
-  name: keyof ValidationSchema;
-  placeholder: string;
-}
+import {Controller} from 'react-hook-form';
+import {InputTextProps} from '@types';
 
 export const InputText = ({control, name, placeholder}: InputTextProps) => {
   return (

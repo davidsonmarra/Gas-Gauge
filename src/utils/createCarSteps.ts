@@ -9,10 +9,16 @@ export const STEPS: AddCarStepProps[] = [
     type: 'text',
   },
   {
+    title: 'Capacidade do tanque',
+    description: 'Digite a capacidade do tanque do seu carro (em L)',
+    field: 'tankCapacity',
+    placeholder: 'Ex: 50',
+    type: 'number',
+  },
+  {
     title: 'Cor',
     description: 'Escolha uma cor para o seu carro',
     field: 'color',
-    placeholder: 'Ex: #f0f0f0',
     type: 'color',
   },
 ];
