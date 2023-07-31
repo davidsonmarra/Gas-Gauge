@@ -23,7 +23,7 @@ export const InputText = ({control, name, placeholder}: InputTextProps) => {
 };
 
 const StyledContainer = styled.View`
-  width: 100%;
+  width: 99%;
   border: 1px solid #101a26;
   border-radius: 16px;
   padding: 8px 16px;

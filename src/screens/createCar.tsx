@@ -132,6 +132,7 @@ const StyledContainer = styled(SafeAreaView).attrs({
   edges: ['bottom'],
 })`
   flex: 1;
+  background-color: ${({theme}) => theme.colors.background};
 `;
 
 const StyledForm = styled.View`
@@ -143,7 +144,7 @@ const StyledList = styled(
 )``;
 
 const StyledButton = styled.TouchableOpacity<{bottom: number}>`
-  background-color: #116695;
+  background-color: ${({theme}) => theme.colors.primary};
   position: absolute;
   bottom: ${({bottom}) => bottom}px;
   width: 100%;
@@ -151,5 +152,9 @@ const StyledButton = styled.TouchableOpacity<{bottom: number}>`
 `;
 
 const StyledButtonLabel = styled.Text`
+  font-family: ${({theme}) => theme.fonts.primary};
+  font-size: ${({theme}) => theme.fontSizes.md};
+  font-weight: ${({theme}) => theme.fontWeights.semiBold};
+  color: ${({theme}) => theme.colors.title};
   text-align: center;
 `;

@@ -59,12 +59,18 @@ const FieldItemComponent = ({
 export const StyledContainer = styled.View<{width: number}>``;
 
 export const StyledTitle = styled.Text`
-  font-size: 24px;
+  font-family: ${({theme}) => theme.fonts.primary};
+  font-size: ${({theme}) => theme.fontSizes.xl};
+  font-weight: ${({theme}) => theme.fontWeights.semiBold};
+  color: ${({theme}) => theme.colors.text};
   margin-bottom: 12px;
 `;
 
 export const StyledDescription = styled.Text`
-  font-size: 16px;
+  font-family: ${({theme}) => theme.fonts.primary};
+  font-size: ${({theme}) => theme.fontSizes.md};
+  font-weight: ${({theme}) => theme.fontWeights.regular};
+  color: ${({theme}) => theme.colors.text};
   margin-bottom: 8px;
 `;
 

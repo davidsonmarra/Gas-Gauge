@@ -1,4 +1,5 @@
 export type RootStackParamList = {
-  Home: undefined;
+  CarDetails: undefined;
   CreateCar: undefined;
+  Home: undefined;
 };

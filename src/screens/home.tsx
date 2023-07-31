@@ -6,7 +6,7 @@ import {shallow} from 'zustand/shallow';
 
 import {useCarsStore} from '@store';
 import {CarProps, RootStackParamList} from '@types';
-import {CarCard} from '@components';
+import {CarCard, EmptyCardListItem} from '@components';
 import {CarHeroSvg, CarPlusSvg} from '@assets';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 
@@ -20,7 +20,6 @@ export const Home = () => {
 
   const onReload = useCallback(() => {
     getCars();
-    // storage.set('cars', '[{"name":"Gol","color":"red"}]');
   }, [getCars]);
 
   const onAddCar = useCallback(() => {
@@ -35,7 +34,7 @@ export const Home = () => {
     <StyledContainer>
       <StatusBar barStyle="light-content" />
       <StyledHeroContainer paddingTop={insets.top}>
-        <CarHeroSvg width={150} height={150} />
+        <CarHeroSvg width={182} height={182} />
       </StyledHeroContainer>
       <StyledList
         data={cars}
@@ -46,6 +45,7 @@ export const Home = () => {
         onEndReachedThreshold={0.5}
         scrollEventThrottle={16}
         keyboardDismissMode="on-drag"
+        ListEmptyComponent={EmptyCardListItem}
       />
       <StyledButton onPress={onAddCar} paddingBottom={insets.bottom}>
         <CarPlusSvg width={34} height={34} />
@@ -63,13 +63,13 @@ const StyledContainer = styled(SafeAreaView).attrs({
   edges: ['bottom'],
 })`
   flex: 1;
-  background-color: #e9e9e9;
+  background-color: ${({theme}) => theme.colors.background};
 `;
 
 const StyledHeroContainer = styled.View<{paddingTop: number}>`
   align-items: center;
   padding-top: ${({paddingTop}) => paddingTop}px;
-  background-color: #101a26;
+  background-color: ${({theme}) => theme.colors.secondary};
 `;
 
 const StyledList = styled(
@@ -92,7 +92,7 @@ const StyledButton = styled.TouchableOpacity<{paddingBottom: number}>`
   justify-content: center;
   align-items: center;
 
-  background-color: #101a26;
+  background-color: ${({theme}) => theme.colors.primary};
   position: absolute;
   right: 24px;
   bottom: ${({paddingBottom}) => paddingBottom + 24}px;
